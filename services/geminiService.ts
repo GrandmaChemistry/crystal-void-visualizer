@@ -1,10 +1,9 @@
 import { GoogleGenAI } from "@google/genai";
 import { CrystalType } from "../types";
 
-// Initialize Gemini Client
 // The API key must be obtained exclusively from process.env.API_KEY.
-// Assume it is valid and accessible as per guidelines.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// We initialize lazily inside the function to prevent the entire app from crashing 
+// on load if the key is missing (e.g., in a GitHub Pages demo without secrets).
 
 export const streamCrystalExplanation = async (
   message: string,
@@ -23,6 +22,9 @@ export const streamCrystalExplanation = async (
   Answer the user's question concisely and accurately in Chinese (unless they ask in English). Use Markdown for formatting.`;
 
   try {
+    // Initialize the client here to be safe
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    
     const chat = ai.chats.create({
       model: modelId,
       config: {
@@ -40,6 +42,6 @@ export const streamCrystalExplanation = async (
     }
   } catch (error) {
     console.error("Gemini API Error:", error);
-    onChunk("\n\n(Error connecting to AI Tutor. Please try again later.)");
+    onChunk("\n\n(AI 助教连接失败。请检查 API Key 配置，或稍后再试。)");
   }
 };
