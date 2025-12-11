@@ -4,45 +4,6 @@ import { OrbitControls, Line, Environment, ContactShadows } from '@react-three/d
 import * as THREE from 'three';
 import { CrystalStructureData, Vector3, VoidDisplayMode, CrystalType, SelectedVoidInfo } from '../types';
 
-// Type augmentation for React Three Fiber elements
-// Extending global JSX namespace
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      mesh: any;
-      sphereGeometry: any;
-      meshPhysicalMaterial: any;
-      meshBasicMaterial: any;
-      group: any;
-      lineSegments: any;
-      edgesGeometry: any;
-      lineBasicMaterial: any;
-      ambientLight: any;
-      pointLight: any;
-      gridHelper: any;
-    }
-  }
-}
-
-// Extending React's internal JSX namespace to ensure compatibility with modern React type definitions
-declare module 'react' {
-  namespace JSX {
-    interface IntrinsicElements {
-      mesh: any;
-      sphereGeometry: any;
-      meshPhysicalMaterial: any;
-      meshBasicMaterial: any;
-      group: any;
-      lineSegments: any;
-      edgesGeometry: any;
-      lineBasicMaterial: any;
-      ambientLight: any;
-      pointLight: any;
-      gridHelper: any;
-    }
-  }
-}
-
 interface CrystalSceneProps {
   data: CrystalStructureData;
   crystalType: CrystalType;
