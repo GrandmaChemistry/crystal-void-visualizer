@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Layers, Cuboid, MessageSquare, Info, X, Grid3X3, Eye, Pentagon, Circle } from 'lucide-react';
+import { Layers, Cuboid, Info, X, Grid3X3, Eye, Pentagon } from 'lucide-react';
 import CrystalScene from './components/CrystalScene';
-import ChatPanel from './components/ChatPanel';
 import StarryBackground from './components/StarryBackground';
 import { STRUCTURES } from './constants';
 import { CrystalType, VoidDisplayMode, SelectedVoidInfo } from './types';
@@ -16,8 +15,6 @@ function App() {
   const [voidDisplayMode, setVoidDisplayMode] = useState<VoidDisplayMode>('dot');
   const [gridSize, setGridSize] = useState<number>(1);
   const [selectedVoid, setSelectedVoid] = useState<SelectedVoidInfo | null>(null);
-
-  const [isChatOpen, setIsChatOpen] = useState(true);
 
   const data = STRUCTURES[currentType];
   
@@ -219,25 +216,7 @@ function App() {
           selectedVoid={selectedVoid}
           onSelectVoid={setSelectedVoid}
         />
-        
-        {/* Toggle Chat Button */}
-        <button
-          onClick={() => setIsChatOpen(!isChatOpen)}
-          className="absolute top-4 right-4 z-20 p-3 bg-slate-800 text-indigo-400 rounded-full shadow-lg hover:bg-slate-700 hover:text-indigo-300 transition-all border border-slate-600"
-          title="Toggle AI Tutor"
-        >
-          {isChatOpen ? <X size={20} /> : <MessageSquare size={20} />}
-        </button>
-
-        {/* Mobile legend omitted for brevity/clutter, UI has sidebar */}
       </div>
-
-      {/* Right Chat Panel */}
-      {isChatOpen && (
-        <div className="h-full z-20 relative animate-in slide-in-from-right duration-300">
-             <ChatPanel currentType={currentType} />
-        </div>
-      )}
     </div>
   );
 }
